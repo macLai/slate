@@ -106,6 +106,21 @@ static NSDictionary *jsawJsMethods;
   }
 }
 
+- (NSArray*) allWindows {
+    NSMutableArray* windows = [NSMutableArray array];
+    CFArrayRef windowsArrRef = [AccessibilityWrapper windowsInRunningApp:app];
+    if (!windowsArrRef || CFArrayGetCount(windowsArrRef) == 0) return nil;
+    CFMutableArrayRef windowsArr = CFArrayCreateMutableCopy(kCFAllocatorDefault, 0, windowsArrRef);
+    for (NSInteger i = 0; i < CFArrayGetCount(windowsArr); i++) {
+        AccessibilityWrapper *_aw = [[AccessibilityWrapper alloc] initWithApp:AXUIElementCreateApplication([app processIdentifier])
+                                                                       window:CFArrayGetValueAtIndex(windowsArr, i)];
+
+        [windows addObject:[[JSWindowWrapper alloc] initWithAccessibilityWrapper:_aw screenWrapper:sw]];
+    }
+    return windows;
+    
+}
+
 - (NSString *)toString {
   return [self name];
 }
@@ -119,6 +134,7 @@ static NSDictionary *jsawJsMethods;
       NSStringFromSelector(@selector(ewindow:)): @"ewindow",
       NSStringFromSelector(@selector(mainWindow)): @"mainWindow",
       NSStringFromSelector(@selector(mwindow)): @"mwindow",
+      NSStringFromSelector(@selector(allWindows)): @"allWindows",
     };
   }
 }
