@@ -24,6 +24,7 @@
 #import "JSController.h"
 #import "JSWindowWrapper.h"
 #import "JSOperationWrapper.h"
+#import "RunningApplications.h"
 
 @implementation JSApplicationWrapper
 
@@ -109,6 +110,9 @@ static NSDictionary *jsawJsMethods;
 - (NSArray*) allWindows {
     NSMutableArray* windows = [NSMutableArray array];
     CFArrayRef windowsArrRef = [AccessibilityWrapper windowsInRunningApp:app];
+    if (!windowsArrRef) {
+        windowsArrRef = [AccessibilityWrapper windowsInRunningApp:[RunningApplications focusedApp]];
+    }
     if (!windowsArrRef || CFArrayGetCount(windowsArrRef) == 0) return nil;
     CFMutableArrayRef windowsArr = CFArrayCreateMutableCopy(kCFAllocatorDefault, 0, windowsArrRef);
     for (NSInteger i = 0; i < CFArrayGetCount(windowsArr); i++) {
