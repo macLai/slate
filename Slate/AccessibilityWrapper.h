@@ -42,6 +42,7 @@
 - (BOOL)resizeWindow:(NSSize)theSize;
 - (BOOL)focus;
 - (BOOL)isMinimizedOrHidden;
+- (BOOL)unMinimize;
 - (NSString *)getTitle;
 - (pid_t)processIdentifier;
 + (BOOL)focusWindow:(AXUIElementRef)window;
@@ -56,6 +57,7 @@
 - (BOOL)isMovable;
 - (BOOL)isResizable;
 + (BOOL)isWindowMinimizedOrHidden:(AXUIElementRef)window inApp:(AXUIElementRef)app;
++ (BOOL)setWindowMinProperty:(AXUIElementRef)window withValue:(id)value;
 + (AXUIElementRef)windowUnderPoint:(NSPoint)point;
 + (void)createSystemWideElement;
 + (AXUIElementRef)applicationForElement:(AXUIElementRef)element;

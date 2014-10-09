@@ -104,6 +104,10 @@ static NSDictionary *jswwJsMethods;
   return [aw isMinimizedOrHidden];
 }
 
+- (BOOL)unMinimize {
+    return [aw unMinimize];
+}
+
 - (BOOL)movable { return [self isMovable]; }
 
 - (BOOL)isMovable {
@@ -172,6 +176,7 @@ static NSDictionary *jswwJsMethods;
       NSStringFromSelector(@selector(pid)): @"pid",
       NSStringFromSelector(@selector(focus)): @"focus",
       NSStringFromSelector(@selector(isMinimizedOrHidden)): @"isMinimizedOrHidden",
+      NSStringFromSelector(@selector(unMinimize)): @"unMinimize",
       NSStringFromSelector(@selector(hidden)): @"hidden",
       NSStringFromSelector(@selector(isMovable)): @"isMovable",
       NSStringFromSelector(@selector(movable)): @"movable",

@@ -143,6 +143,10 @@ static NSDictionary *unselectableApps = nil;
   return [AccessibilityWrapper isWindowMinimizedOrHidden:[self window] inApp:[self app]];
 }
 
+- (BOOL)unMinimize {
+    return [AccessibilityWrapper setWindowMinProperty:[self window] withValue:[NSNumber numberWithLong:NO]];
+}
+
 - (BOOL)isMovable {
   return [self moveWindow:[self getCurrentTopLeft]];
 }
@@ -267,6 +271,16 @@ static NSDictionary *unselectableApps = nil;
     isMinimized = [isMinimizedNum boolValue];
   }
   return isMinimized || isHidden;
+}
+
++ (BOOL)setWindowMinProperty:(AXUIElementRef)window withValue:(id)value {
+    if ([value isKindOfClass:[NSNumber class]]) {
+        AXError result = AXUIElementSetAttributeValue(window, (CFStringRef)NSAccessibilityMinimizedAttribute, (__bridge CFTypeRef)(value));
+        if (result == kAXErrorSuccess) {
+            return YES;
+        }
+    }
+    return NO;
 }
 
 + (AXUIElementRef)windowUnderPoint:(NSPoint)point {
