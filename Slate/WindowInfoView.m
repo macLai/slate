@@ -69,12 +69,13 @@
       NSString *title = [AccessibilityWrapper getTitle:CFArrayGetValueAtIndex(windowsArr, i)];
       if ([title isEqualToString:@""]) continue;
       AccessibilityWrapper *aw = [[AccessibilityWrapper alloc] initWithApp:appRef window:CFArrayGetValueAtIndex(windowsArr, i)];
+      pid_t winPID = [aw processIdentifier];
       NSSize size = [aw getCurrentSize];
       NSPoint badTL = [aw getCurrentTopLeft];
       NSInteger badScreenID = [sw getScreenIdForRect:NSMakeRect(badTL.x, badTL.y, size.width, size.height)];
       NSInteger screenID = [sw convertDefaultOrderToLeftToRightOrder:badScreenID];
       NSPoint tl = [sw convertTopLeftToScreenRelative:badTL screen:badScreenID];
-      text = [text stringByAppendingFormat:@"  Window: '%@'\n    Screen ID (Left to Right): %ld\n    Size: (%ld, %ld)\n    Top Left: (screenOriginX+%ld, screenOriginY+%ld)\n", title, screenID, (NSInteger)size.width, (NSInteger)size.height, (NSInteger)tl.x, (NSInteger)tl.y];
+      text = [text stringByAppendingFormat:@"  Window: '%@'\n    Screen ID (Left to Right): %ld\n    Size: (%ld, %ld)\n    Top Left: (screenOriginX+%ld, screenOriginY+%ld)\n    pid:%d\n", title, screenID, (NSInteger)size.width, (NSInteger)size.height, (NSInteger)tl.x, (NSInteger)tl.y, winPID];
     }
   }
   [self setString:text];
