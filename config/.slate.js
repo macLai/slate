@@ -311,28 +311,11 @@ function toNextWindows(win) {
 		win.unMinimize();
 		return;
 	}
-	var firstWin = -1;
 	var winList = slate.app().allWindows();
-	if(win == null) {
-		firstWin = 0;
-	}
-	for (var i = 0; i < winList.length; i++) {
-		if(firstWin == -1) {
-			if(win == winList[i]) {
-				firstWin = i;
-				if(i == winList.length - 1) {
-					i = 0;
-				}
-			}
-		}
-		else {
-			if(winList[i].isMinimizedOrHidden()) {
-				winList[i].unMinimize();
-			}
-			winList[i].focus();
-			break;
-		}
-	}
+	if(winList.length == 1 && win != null) return;
+	winList[winList.length - 1].unMinimize();
+	winList[winList.length - 1].focus();
+	return;
 }
 
 slate.bind("left:ctrl,alt,cmd", function(win) {
