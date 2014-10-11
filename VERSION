@@ -1,4 +1,11 @@
-Current Version: 1.0.25
+Current Version: 1.0.26
+
+----------------- 1.0.26 ----------------
+
+增加api
+- allWindows
+- unMinimize
+增加windowinfoview的pid显示
 
 ----------------- 1.0.25 ----------------
 
