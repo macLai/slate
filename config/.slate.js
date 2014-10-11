@@ -312,29 +312,64 @@ function toNextWindows(win) {
 		return;
 	}
 	var winList = slate.app().allWindows();
-	if(winList.length == 1 && win != null) return;
+	if(winList == null || (winList.length == 1 && win != null)) {
+		return;
+	}
 	winList[winList.length - 1].unMinimize();
 	winList[winList.length - 1].focus();
 	return;
 }
 
 slate.bind("left:ctrl,alt,cmd", function(win) {
+	if(win == null) return;
 	pos = pos2num(win.rect());
 	toPosition(1,pos,win);
 });
 slate.bind("right:ctrl,alt,cmd", function(win) {
+	if(win == null) return;
 	pos = pos2num(win.rect());
 	toPosition(2,pos,win);
 });
 slate.bind("up:ctrl,alt,cmd", function(win) {
+	if(win == null) return;
 	pos = pos2num(win.rect());
 	toPosition(0,pos,win);
 });
 slate.bind("down:ctrl,alt,cmd", function(win) {
+	if(win == null) return;
 	pos = pos2num(win.rect());
 	toPosition(3,pos,win);
 });
 slate.bind("`:cmd", function(win) {
 	toNextWindows(win);
 });
-
+slate.bind("m:ctrl,alt,cmd", function(win) {
+	if(win == null) return;
+	win.doOperation(corner0112);
+});
+slate.bind("c:ctrl,alt,cmd", function(win) {
+	if(win == null) return;
+	win.doOperation("move",{
+		"x" : "screenOriginX+screenSizeX*0.1",
+		"y" : "screenOriginY",
+		"width" : "screenSizeX*0.8",
+		"height" : "screenSizeY*0.95"
+	});
+});
+slate.bind("space:ctrl,alt,cmd", function(win) {
+	if(win == null) return;
+	var idBefore = win.screen().id();
+	count = slate.screenCount();
+	if(idBefore == count - 1) idAfter = 0;
+	else idAfter = idBefore + 1;
+	var rectBefore = slate.screenForRef(idBefore).visibleRect();
+	var rectAfter = slate.screenForRef(idAfter).visibleRect();
+	var rectWin = win.rect();
+	win.doOperation("throw",{
+		"screen" : idAfter,
+		"x" : rectWin.x / rectBefore.x * rectAfter.x,
+		"y" : rectWin.y / rectBefore.y * rectAfter.y,
+		"width" : rectWin.width / rectBefore.width * rectAfter.width,
+		"height" : rectWin.height / rectBefore.height * rectAfter.height
+	});
+});
