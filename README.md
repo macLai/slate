@@ -1,3 +1,41 @@
+这是一款非常优秀的os x上的窗口管理App，可以完全代替moom等收费App。
+# 前言 #
+forked from [jigish/slate](https://github.com/jigish/slate)<br />
+在其基础上增加和修改了一些api，使其更适合我的使用习惯。
+阅读顺序：
+
+1. 看完此README
+2. 详细介绍和已实现功能请看[高效管理os x窗口](http://maclai.tk/mac-windows-control.html)
+3. 粗略了解api请看我整理的[wiki](https://github.com/macLai/slate/wiki)
+4. 详细了解api请看jigish的[wiki](https://github.com/jigish/slate/wiki)
+5. 有问题请联系[我](mailto:laizewen01@gmail.com)或者联系[jigish](mailto:tskraja@gmail.com)
+6. 喜欢就加个Star，谢谢...
+
+# 使用 #
+## 功能 ##
+
+* 任意调整窗口大小和位置
+* 多屏幕的窗口移动
+* 窗口之间的切换
+* snapshots(没用过)
+* layouts(没用过)
+* 高度定制化(配置文件是用javascript写的脚本文件，可以写复杂逻辑)
+* Window Hints(没用过)
+* 绑定任意快捷键
+
+## 下载 ##
+2种方法
+* 下载[slate]()
+* 命令行
+
+## 安装 ##
+本App由`slate.app`和(`.slate.js`or`.slate`)组成。`slate.app`放到`/Applications/`，`.slate(.js)`放到`~`。<br />
+App启动时会导入配置文件`.slate(.js)`，来实现功能。如果没有找到会启动默认配置。<br />
+默认配置很垃圾...
+
+## 注意 ##
+`设置→安全与隐私→辅助功能`里把`Slate`勾上，要不然App无法控制窗口
+
 # About Slate #
 
 Slate is a window management application similar to Divvy and SizeUp (except better and free!). Originally written to replace them due to some limitations in how each work, it attempts to overcome them by simply being extremely configurable. As a result, it may be a bit daunting to get configured, but once it is done, the benefit is huge.
