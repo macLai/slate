@@ -357,19 +357,21 @@ slate.bind("c:ctrl,alt,cmd", function(win) {
 	});
 });
 slate.bind("space:ctrl,alt,cmd", function(win) {
+	slate.app().printKey();
+	return;
 	if(win == null) return;
-	var idBefore = win.screen().id();
+	var id = win.screen().id();
+	var rectBefore = slate.screenForRef(id).visibleRect();
 	count = slate.screenCount();
-	if(idBefore == count - 1) idAfter = 0;
-	else idAfter = idBefore + 1;
-	var rectBefore = slate.screenForRef(idBefore).visibleRect();
-	var rectAfter = slate.screenForRef(idAfter).visibleRect();
+	if(id == count - 1) id = 0;
+	else id = id + 1;
+	var rectAfter = slate.screenForRef(id).visibleRect();
 	var rectWin = win.rect();
 	win.doOperation("throw",{
-		"screen" : idAfter,
-		"x" : rectWin.x / rectBefore.x * rectAfter.x,
-		"y" : rectWin.y / rectBefore.y * rectAfter.y,
+		"x" : rectWin.x / rectBefore.width * rectAfter.width,
+		"y" : rectWin.y / rectBefore.height * rectAfter.height,
 		"width" : rectWin.width / rectBefore.width * rectAfter.width,
-		"height" : rectWin.height / rectBefore.height * rectAfter.height
+		"height" : rectWin.height / rectBefore.height * rectAfter.height,
+		"screen" : slate.screenForRef(id)
 	});
 });
